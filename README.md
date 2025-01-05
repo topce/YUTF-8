@@ -2,7 +2,7 @@
 What is YUSCII to ASCII , that is YUTF-8 to UTF-8 ;-)
 
 YUTF-8
-Swap YUSCII chars with UTF-8
+Swap YUSCII chars in UTF-8
 https://en.wikipedia.org/wiki/YUSCII
 
 So as UTF-8 is compatible to ASCII 
@@ -10,9 +10,8 @@ YUTF-8 is compatible with YUSCII
 
 YUTF-8 is my charachter encoding standard that similar like  UTF-8
 that swap YUSCII charachters.
-So 
 
-It could be used to in 3 variation to encode  
+It could be used to in 3 variation to encode (use BOM  chrs for this?)  
 Serbian Latin (Slovenian and Croatian as well),  
 Serbian Cyrillic,
 Macedonin Cyrillic.
