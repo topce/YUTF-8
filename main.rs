@@ -413,4 +413,86 @@ fn convert_yuscii_to_macedonian(text: &str) -> String {
     }).collect()
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_latin_roundtrip() {
+        let original = "ABCČĆDĐEFGHIJKLMNOPQRSŠTUVWXYZŽ abcčćdđefghijklmnopqrsštuvwxyzž";
+        let yuscii = convert_latin_to_yuscii(original);
+        let converted_back = convert_yuscii_to_latin(&yuscii);
+        assert_eq!(original, converted_back);
+    }
+
+    #[test]
+    fn test_serbian_cyrillic_roundtrip() {
+        let original = "АБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ абвгдђежзијклљмнњопрстћуфхцчџш";
+        let yuscii = convert_serbian_cyrillic_to_yuscii(original);
+        let converted_back = convert_yuscii_to_serbian_cyrillic(&yuscii);
+        assert_eq!(original, converted_back);
+    }
+
+    #[test]
+    fn test_macedonian_roundtrip() {
+        let original = "АБВГДЃЕЖЗЅИЈКЛЉМНЊОПРСТЌУФХЦЧЏШ абвгдѓежзѕијклљмнњопрстќуфхцчџш";
+        let yuscii = convert_macedonian_to_yuscii(original);
+        let converted_back = convert_yuscii_to_macedonian(&yuscii);
+        assert_eq!(original, converted_back);
+    }
+
+    #[test]
+    fn test_latin_to_yuscii() {
+        let input = "ČĆĐŠŽ čćđšž";
+        let expected = "^]\\[@ ~}|{`";
+        assert_eq!(convert_latin_to_yuscii(input), expected);
+    }
+
+    #[test]
+    fn test_serbian_cyrillic_to_yuscii() {
+        let input = "ЉЊЏШЂЋЧ љњџшђћч";
+        let expected = "QWX[\\]^ qwx{|}~";
+        assert_eq!(convert_serbian_cyrillic_to_yuscii(input), expected);
+    }
+
+    #[test]
+    fn test_macedonian_to_yuscii() {
+        let input = "ЉЊЏЅШЃЌЧ љњџѕшѓќч";
+        let expected = "QWXY[\\]^ qwxy{|}~";
+        assert_eq!(convert_macedonian_to_yuscii(input), expected);
+    }
+
+    #[test]
+    fn test_yuscii_to_latin() {
+        let input = "^]\\[@ ~}|{`";
+        let expected = "ČĆĐŠŽ čćđšž";
+        assert_eq!(convert_yuscii_to_latin(input), expected);
+    }
+
+    #[test]
+    fn test_yuscii_to_serbian_cyrillic() {
+        let input = "QWX[\\]^ qwx{|}~";
+        let expected = "ЉЊЏШЂЋЧ љњџшђћч";
+        assert_eq!(convert_yuscii_to_serbian_cyrillic(input), expected);
+    }
+
+    #[test]
+    fn test_yuscii_to_macedonian() {
+        let input = "QWXY[\\]^ qwxy{|}~";
+        let expected = "ЉЊЏЅШЃЌЧ љњџѕшѓќч";
+        assert_eq!(convert_yuscii_to_macedonian(input), expected);
+    }
+
+    #[test]
+    fn test_unchanged_characters() {
+        let input = "0123456789,.!? ";
+        assert_eq!(convert_latin_to_yuscii(input), input);
+        assert_eq!(convert_serbian_cyrillic_to_yuscii(input), input);
+        assert_eq!(convert_macedonian_to_yuscii(input), input);
+        assert_eq!(convert_yuscii_to_latin(input), input);
+        assert_eq!(convert_yuscii_to_serbian_cyrillic(input), input);
+        assert_eq!(convert_yuscii_to_macedonian(input), input);
+    }
+}
+
 
