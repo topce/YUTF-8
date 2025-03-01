@@ -1,9 +1,12 @@
 [package]
-name = "YUTF-8"
+name = "yutf-8"
 version = "0.1.0"
 edition = "2021"
+description = "A tool for converting between UTF-8 and YUTF-8 encoding"
+authors = ["topce"]
 
 [dependencies]
+once_cell = "1.18.0"
 
 [[bin]]
 name = "YUTF-8"
