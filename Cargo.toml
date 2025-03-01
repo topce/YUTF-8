@@ -1,0 +1,11 @@
+[package]
+name = "YUTF-8"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[[bin]]
+name = "YUTF-8"
+path = "main.rs"
+
