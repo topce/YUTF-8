@@ -12,28 +12,28 @@ fn main() -> io::Result<()> {
             
             match mode.as_str() {
                 "latin" => {
-                    println!("Converting YUSCII to Serbian Latin/Croatian/Slovenian");
-                    convert_yuscii_to_latin(&text)
+                    println!("Converting yutf8 to Serbian Latin/Croatian/Slovenian");
+                    convert_yutf8_to_latin(&text)
                 },
                 "cyrillic" => {
-                    println!("Converting YUSCII to Serbian Cyrillic");
-                    convert_yuscii_to_serbian_cyrillic(&text)
+                    println!("Converting yutf8 to Serbian Cyrillic");
+                    convert_yutf8_to_serbian_cyrillic(&text)
                 },
                 "macedonian" => {
-                    println!("Converting YUSCII to Macedonian");
-                    convert_yuscii_to_macedonian(&text)
+                    println!("Converting yutf8 to Macedonian");
+                    convert_yutf8_to_macedonian(&text)
                 },
                 "to_latin" => {
-                    println!("Converting UTF-8 Serbian Latin/Croatian/Slovenian to YUSCII");
-                    convert_latin_to_yuscii(&text)
+                    println!("Converting UTF-8 Serbian Latin/Croatian/Slovenian to yutf8");
+                    convert_latin_to_yutf8(&text)
                 },
                 "to_cyrillic" => {
-                    println!("Converting UTF-8 Serbian Cyrillic to YUSCII");
-                    convert_serbian_cyrillic_to_yuscii(&text)
+                    println!("Converting UTF-8 Serbian Cyrillic to yutf8");
+                    convert_serbian_cyrillic_to_yutf8(&text)
                 },
                 "to_macedonian" => {
-                    println!("Converting UTF-8 Macedonian to YUSCII");
-                    convert_macedonian_to_yuscii(&text)
+                    println!("Converting UTF-8 Macedonian to yutf8");
+                    convert_macedonian_to_yutf8(&text)
                 },
                 _ => {
                     println!("Unknown mode. Usage: program [latin|cyrillic|macedonian|to_latin|to_cyrillic|to_macedonian] text");
@@ -65,9 +65,9 @@ fn main() -> io::Result<()> {
     Ok(())
 }
 
-// Functions to convert from UTF-8 to YUSCII
+// Functions to convert from UTF-8 to yutf8
 
-fn convert_latin_to_yuscii(text: &str) -> String {
+fn convert_latin_to_yutf8(text: &str) -> String {
     let mut mapping = HashMap::new();
     
     // Special Latin characters used in Serbian Latin/Croatian/Slovenian
@@ -91,7 +91,7 @@ fn convert_latin_to_yuscii(text: &str) -> String {
     }).collect()
 }
 
-fn convert_serbian_cyrillic_to_yuscii(text: &str) -> String {
+fn convert_serbian_cyrillic_to_yutf8(text: &str) -> String {
     let mut mapping = HashMap::new();
     
     // Capital Cyrillic letters (Serbian)
@@ -164,7 +164,7 @@ fn convert_serbian_cyrillic_to_yuscii(text: &str) -> String {
     }).collect()
 }
 
-fn convert_macedonian_to_yuscii(text: &str) -> String {
+fn convert_macedonian_to_yutf8(text: &str) -> String {
     let mut mapping = HashMap::new();
     
     // Capital Cyrillic letters (Macedonian)
@@ -239,12 +239,12 @@ fn convert_macedonian_to_yuscii(text: &str) -> String {
     }).collect()
 }
 
-// Inverse functions to convert from YUSCII to UTF-8
+// Inverse functions to convert from yutf8 to UTF-8
 
-fn convert_yuscii_to_latin(text: &str) -> String {
+fn convert_yutf8_to_latin(text: &str) -> String {
     let mut mapping = HashMap::new();
     
-    // Map YUSCII to special Latin characters
+    // Map yutf8 to special Latin characters
     mapping.insert('@', 'Ž');  // 40
     mapping.insert('[', 'Š');  // 5B
     mapping.insert('\\', 'Đ'); // 5C
@@ -263,10 +263,10 @@ fn convert_yuscii_to_latin(text: &str) -> String {
     }).collect()
 }
 
-fn convert_yuscii_to_serbian_cyrillic(text: &str) -> String {
+fn convert_yutf8_to_serbian_cyrillic(text: &str) -> String {
     let mut mapping = HashMap::new();
     
-    // Map YUSCII to Cyrillic characters (Serbian)
+    // Map yutf8 to Cyrillic characters (Serbian)
     // Capital letters
     mapping.insert('A', 'А');  // 41
     mapping.insert('B', 'Б');  // 42
@@ -337,10 +337,10 @@ fn convert_yuscii_to_serbian_cyrillic(text: &str) -> String {
     }).collect()
 }
 
-fn convert_yuscii_to_macedonian(text: &str) -> String {
+fn convert_yutf8_to_macedonian(text: &str) -> String {
     let mut mapping = HashMap::new();
     
-    // Map YUSCII to Cyrillic characters (Macedonian)
+    // Map yutf8 to Cyrillic characters (Macedonian)
     // Capital letters
     mapping.insert('A', 'А');  // 41
     mapping.insert('B', 'Б');  // 42
@@ -420,78 +420,78 @@ mod tests {
     #[test]
     fn test_latin_roundtrip() {
         let original = "ABCČĆDĐEFGHIJKLMNOPQRSŠTUVWXYZŽ abcčćdđefghijklmnopqrsštuvwxyzž";
-        let yuscii = convert_latin_to_yuscii(original);
-        let converted_back = convert_yuscii_to_latin(&yuscii);
+        let yutf8 = convert_latin_to_yutf8(original);
+        let converted_back = convert_yutf8_to_latin(&yutf8);
         assert_eq!(original, converted_back);
     }
 
     #[test]
     fn test_serbian_cyrillic_roundtrip() {
         let original = "АБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ абвгдђежзијклљмнњопрстћуфхцчџш";
-        let yuscii = convert_serbian_cyrillic_to_yuscii(original);
-        let converted_back = convert_yuscii_to_serbian_cyrillic(&yuscii);
+        let yutf8 = convert_serbian_cyrillic_to_yutf8(original);
+        let converted_back = convert_yutf8_to_serbian_cyrillic(&yutf8);
         assert_eq!(original, converted_back);
     }
 
     #[test]
     fn test_macedonian_roundtrip() {
         let original = "АБВГДЃЕЖЗЅИЈКЛЉМНЊОПРСТЌУФХЦЧЏШ абвгдѓежзѕијклљмнњопрстќуфхцчџш";
-        let yuscii = convert_macedonian_to_yuscii(original);
-        let converted_back = convert_yuscii_to_macedonian(&yuscii);
+        let yutf8 = convert_macedonian_to_yutf8(original);
+        let converted_back = convert_yutf8_to_macedonian(&yutf8);
         assert_eq!(original, converted_back);
     }
 
     #[test]
-    fn test_latin_to_yuscii() {
+    fn test_latin_to_yutf8() {
         let input = "ČĆĐŠŽ čćđšž";
         let expected = "^]\\[@ ~}|{`";
-        assert_eq!(convert_latin_to_yuscii(input), expected);
+        assert_eq!(convert_latin_to_yutf8(input), expected);
     }
 
     #[test]
-    fn test_serbian_cyrillic_to_yuscii() {
+    fn test_serbian_cyrillic_to_yutf8() {
         let input = "ЉЊЏШЂЋЧ љњџшђћч";
         let expected = "QWX[\\]^ qwx{|}~";
-        assert_eq!(convert_serbian_cyrillic_to_yuscii(input), expected);
+        assert_eq!(convert_serbian_cyrillic_to_yutf8(input), expected);
     }
 
     #[test]
-    fn test_macedonian_to_yuscii() {
+    fn test_macedonian_to_yutf8() {
         let input = "ЉЊЏЅШЃЌЧ љњџѕшѓќч";
         let expected = "QWXY[\\]^ qwxy{|}~";
-        assert_eq!(convert_macedonian_to_yuscii(input), expected);
+        assert_eq!(convert_macedonian_to_yutf8(input), expected);
     }
 
     #[test]
-    fn test_yuscii_to_latin() {
+    fn test_yutf8_to_latin() {
         let input = "^]\\[@ ~}|{`";
         let expected = "ČĆĐŠŽ čćđšž";
-        assert_eq!(convert_yuscii_to_latin(input), expected);
+        assert_eq!(convert_yutf8_to_latin(input), expected);
     }
 
     #[test]
-    fn test_yuscii_to_serbian_cyrillic() {
+    fn test_yutf8_to_serbian_cyrillic() {
         let input = "QWX[\\]^ qwx{|}~";
         let expected = "ЉЊЏШЂЋЧ љњџшђћч";
-        assert_eq!(convert_yuscii_to_serbian_cyrillic(input), expected);
+        assert_eq!(convert_yutf8_to_serbian_cyrillic(input), expected);
     }
 
     #[test]
-    fn test_yuscii_to_macedonian() {
+    fn test_yutf8_to_macedonian() {
         let input = "QWXY[\\]^ qwxy{|}~";
         let expected = "ЉЊЏЅШЃЌЧ љњџѕшѓќч";
-        assert_eq!(convert_yuscii_to_macedonian(input), expected);
+        assert_eq!(convert_yutf8_to_macedonian(input), expected);
     }
 
     #[test]
     fn test_unchanged_characters() {
         let input = "0123456789,.!? ";
-        assert_eq!(convert_latin_to_yuscii(input), input);
-        assert_eq!(convert_serbian_cyrillic_to_yuscii(input), input);
-        assert_eq!(convert_macedonian_to_yuscii(input), input);
-        assert_eq!(convert_yuscii_to_latin(input), input);
-        assert_eq!(convert_yuscii_to_serbian_cyrillic(input), input);
-        assert_eq!(convert_yuscii_to_macedonian(input), input);
+        assert_eq!(convert_latin_to_yutf8(input), input);
+        assert_eq!(convert_serbian_cyrillic_to_yutf8(input), input);
+        assert_eq!(convert_macedonian_to_yutf8(input), input);
+        assert_eq!(convert_yutf8_to_latin(input), input);
+        assert_eq!(convert_yutf8_to_serbian_cyrillic(input), input);
+        assert_eq!(convert_yutf8_to_macedonian(input), input);
     }
 }
 
