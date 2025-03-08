@@ -32,10 +32,11 @@ implment rust linrary (WASM) UTF-8 <-> YUTF-8 libs similar like https://github.c
 to make easy to use and experiment with YUTF-8 new encoding standard. 
 
 # Converting UTF-8 to YUTF-8
+```
 cargo run -- to_latin "Žaba čeka"
 cargo run -- to_cyrillic "Жаба чека"
 cargo run -- to_macedonian "Ѕвезда ќе"
-
+````
 # Converting YUTF-8 to UTF-8
 cargo run -- latin "@aba ~eka"
 cargo run -- cyrillic "@aba ~eka"
