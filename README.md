@@ -38,7 +38,8 @@ cargo run -- to_cyrillic "Жаба чека"
 cargo run -- to_macedonian "Ѕвезда ќе"
 ````
 # Converting YUTF-8 to UTF-8
+```
 cargo run -- latin "@aba ~eka"
 cargo run -- cyrillic "@aba ~eka"
 cargo run -- macedonian "Yvezda }e"
-
+```
